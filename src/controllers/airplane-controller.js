@@ -54,10 +54,42 @@ async function destroyAirplane(req, res) {
     }
 }
 
+async function updateAirplane(req, res) {
+    try {
+        const { id } = req.params;  // Extract the airplane ID from the request params
+        const { modelNumber, capacity } = req.body;  // Extract updated values from the request body
+
+        // Update the airplane with the new data
+        const updatedAirplane = await AirplaneService.updateAirplane(id, {
+            modelNumber,
+            capacity
+        });
+
+        // If the airplane doesn't exist or update fails, return an error
+        if (!updatedAirplane) {
+            return res.status(StatusCodes.NOT_FOUND).json({
+                success: false,
+                message: `Airplane with ID ${id} not found`,
+                data: {},
+                error: {}
+            });
+        }
+
+        // Return the updated airplane in the success response
+        SuccessResponse.data = updatedAirplane;
+        return res.status(StatusCodes.OK).json(SuccessResponse);
+    } catch (error) {
+        // Handle errors
+        ErrorResponse.error = error;
+        return res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json(ErrorResponse);
+    }
+}
+
+
 module.exports = {
     createAirplane,
     getAirplanes,
     getAirplane,
     destroyAirplane,
-
+    updateAirplane
 };

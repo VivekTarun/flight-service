@@ -55,10 +55,45 @@ async function destroyAirplane(id) {
     }
 }
 
+async function updateAirplane(id, data) {
+    try {
+        // Check if the airplane exists
+        const airplane = await airplaneRepository.get(id);
+        
+        // If the airplane is not found, throw a 404 error
+        if (!airplane) {
+            throw new AppError('The airplane you requested to update does not exist', StatusCodes.NOT_FOUND);
+        }
+
+        // Proceed with the update if the airplane is found
+        const updatedAirplane = await airplaneRepository.update(id, data);
+
+        // Return the updated airplane object
+        return updatedAirplane;
+    } catch (error) {
+        // Handle validation errors from the repository layer
+        if (error.name === 'ValidationError') {
+            let explanation = [];
+            error.errors.forEach((err) => {
+                explanation.push(err.message);
+            });
+            throw new AppError(explanation, StatusCodes.BAD_REQUEST);
+        }
+        
+        // General error handling
+        if (error.statusCode === StatusCodes.NOT_FOUND) {
+            throw new AppError('The airplane you requested to update is not found', StatusCodes.NOT_FOUND);
+        }
+
+        // Catch any other unexpected errors
+        throw new AppError('Cannot update the airplane object', StatusCodes.INTERNAL_SERVER_ERROR);
+    }
+}
+
 module.exports = {
     createAirplane,
     getAirplanes,
     getAirplane,
     destroyAirplane,
-    
+    updateAirplane
 }
