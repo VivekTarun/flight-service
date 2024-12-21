@@ -13,10 +13,10 @@ app.use('/api', apiRoutes);
 app.listen(serverConfig.PORT, async () => {
     console.log(`Successfully started the server on PORT : ${serverConfig.PORT}`);
     //bad code alert
-    const { City, Airport } = require('./models');
-    const city = await City.findByPk(1);
-    console.log(city);
-    const airport = await Airport.create({name: 'Kempegowda Airport', code: 'BLR'}); 
+    // const { City, Airport } = require('./models');
+    // const city = await City.findByPk(1);
+    // console.log(city);
+    // const airport = await Airport.create({name: 'Kempegowda Airport', code: 'BLR'}); 
      
 });
 

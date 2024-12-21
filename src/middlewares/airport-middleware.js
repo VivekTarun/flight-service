@@ -5,7 +5,7 @@ const AppError = require('../utils/errors/app-error');
 function validateCreateRequest(req, res, next) {
     const { name, code, address, cityId } = req.body;
 
-    if (!name || !code || !address || !cityId) {
+    if (!name || !code || !cityId) {
         ErrorResponse.message = 'Invalid data in the create airport request';
         ErrorResponse.error = new AppError(
             ['All fields: name, code, address, and cityId are required'],
