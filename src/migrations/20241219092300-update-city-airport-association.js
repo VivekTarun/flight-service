@@ -11,7 +11,6 @@ module.exports = {
         table: 'Cities',
         field: 'id', // Corrected from 'key' to 'field'
       },
-      onUpdate: 'CASCADE',
       onDelete: 'CASCADE',
     });
   },
