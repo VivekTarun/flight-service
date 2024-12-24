@@ -3,7 +3,6 @@ const {Op} = require('sequelize');
 const { FlightRepository } = require('../repositories');
 const AppError = require('../utils/errors/app-error');
 const { validateDateTime } = require('../utils/helpers/dataTime-helper');
-const { param } = require('../routes');
 
 const flightRepository = new FlightRepository();
 
@@ -59,10 +58,10 @@ async function getAllFlights(query) {
             [Op.between]: [query.tripDate, query.tripDate + endingTripTime]  
         }
     }
-    if(query.sort) {
+    if (query.sort) {
         const params = query.sort.split(",");
-        const sortFilter = params.map((param) => param.split("_"));
-        sortFilter = sortFilter;
+        sortFilter = params.map((param) => param.split("_"));
+        console.log(sortFilter);
     }
     
     try {
