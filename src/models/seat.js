@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   Seat.init({
     row: {
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER,
       allowNull: false
     },
     col: {
