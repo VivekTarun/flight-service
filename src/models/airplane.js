@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    capacity: {
+    capacity: { // Total seats available in the airplane.
       type: DataTypes.INTEGER,
       allowNull: false,
       defaultValue: 0
